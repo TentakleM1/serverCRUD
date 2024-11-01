@@ -1,15 +1,16 @@
 import { pbkdf2Sync } from "crypto";
 import dotenv from "dotenv";
+import { config } from "../../../config";
 dotenv.config();
 
 const {
-    SALT,
-    ITERATIONS,
-    KEYLEN,
-    DIGEST
-} = process.env
+    salt,
+    iterations,
+    keylen,
+    digest
+} = config
 
 export const hashPassword = (password: string ): string => {
-    const hashPassword = pbkdf2Sync(password, SALT as string, Number(ITERATIONS), Number(KEYLEN), DIGEST as string)
+    const hashPassword = pbkdf2Sync(password, salt as string, iterations, keylen, digest as string)
     return hashPassword.toString('hex')
 }

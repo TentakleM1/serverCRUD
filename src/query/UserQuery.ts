@@ -37,10 +37,19 @@ class UserQueryBase {
     });
   }
 
-  getFullUserByEmail(email: string) {
+  getUserWithPasswordByEmail(email: string) {
     return this.repository.findOne({
       where: {
         email: email,
+      },
+      select: this.selectUser,
+    });
+  }
+
+  getUserWithPasswordById(id: number) {
+    return this.repository.findOne({
+      where: {
+        id: id,
       },
       select: this.selectUser,
     });
@@ -56,11 +65,7 @@ class UserQueryBase {
   }
 
   deleteUser(id: number) {
-    this.repository.softDelete(id);
-  }
-
-  async riseUser(email: string) {
-    await this.repository.restore({ email: email });
+    this.repository.delete(id);
   }
 }
 

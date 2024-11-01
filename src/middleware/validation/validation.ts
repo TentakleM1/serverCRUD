@@ -1,27 +1,24 @@
 import { Handler } from "express";
 import { ObjectSchema } from "yup";
-import { signinSchema, signupSchema } from "../schema/authSchema";
 import { CustomError } from "../../shared/utils/customError/CustomError";
+import { ISigninSchema, ISignupSchema } from "../schema/authSchema";
+import { IChangePasswordSchema, IEditUserSchema, ILinkSchema } from "../schema/userSchema";
 
 type ValidationType = (
-  schema?: ObjectSchema<signupSchema | signinSchema>
+  schema: ObjectSchema<ISigninSchema | ISignupSchema | IEditUserSchema | IChangePasswordSchema | ILinkSchema>
 ) => Handler;
 
 export const validation: ValidationType = (schema) => {
   return async (req, res, next) => {
     try {
-      if (schema) {
-        await schema.validate(req.body);
-        return next();
-      }
+      await schema.validate({
+        params: req.params.userId,
+        body: req.body,
+      }, { stripUnknown: false });
 
-      if (!req.params.userId) {
-        throw new CustomError(400)
-      }
-
-      next();
+      return next();
     } catch (err) {
-      next(new CustomError(400, (err as Error).message))
+      return next(new CustomError(400, (err as Error).message))
     }
   };
 };

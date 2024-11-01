@@ -1,14 +1,12 @@
 import { Express } from "express";
 import express from "express";
 import { AppDataSource } from "./db/data-source";
-import dotenv from "dotenv";
 import generalRouter from "./routes";
 import { errorHandler } from "./middleware/errorHandler/errorHandler";
-dotenv.config();
+import { config } from "./config";
 
 
-
-const port: number = Number(process.env.PORT) || 3000;
+const port: number = config.port || 3000;
 const app: Express = express();
 
 AppDataSource.initialize()
@@ -20,6 +18,7 @@ AppDataSource.initialize()
   });
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(generalRouter);
 app.use(errorHandler);
 

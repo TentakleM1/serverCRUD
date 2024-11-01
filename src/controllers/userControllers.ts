@@ -36,3 +36,12 @@ export const editUser: Handler = async (req, res, next) => {
     next(err)
   }
 };
+
+export const changePassword: Handler = async (req, res, next) => {
+  try {
+    await UserService.changePasswordUser(Number(req.params.userId), req.body.password);
+    res.status(201).send({ message: 'Password changed'});
+  } catch (err) {
+    next(err)
+  }
+};

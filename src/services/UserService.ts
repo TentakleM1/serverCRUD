@@ -25,17 +25,40 @@ export class UserService {
     return userDB;
   }
 
-  static async getFullUserByEmail(email: string) {
-    return await UserQuery.getFullUserByEmail(email);
+  static async getUserWithPasswordByEmail(email: string) {
+    const userDB = await UserQuery.getUserWithPasswordByEmail(email);
+    if(!userDB) {
+      throw new CustomError(404, 'User not found');
+    }
+    return userDB
+  }
+
+  static async getUserWithPasswordById(id: number) {
+    const userDB = await UserQuery.getUserWithPasswordById(id);
+    if(!userDB) {
+      throw new CustomError(404, 'User not found');
+    }
+    return userDB
   }
 
   static async editUser(user: IUser) {
-    user.password = hashPassword(user.password)
     const userDB = await UserQuery.editUser(user);
     if (!userDB) {
       throw new CustomError(404, "User not Found");
     }
     return userDB
+  }
+
+  static async changePasswordUser(id: number, password: string) {
+    const userDB = await this.getUserWithPasswordById(id);
+
+    const newHashPassword = hashPassword(password);
+
+    if(userDB.password === newHashPassword) {
+      throw new CustomError(400, 'Password dublicate');
+    }
+    userDB.password = newHashPassword;
+    await UserQuery.editUser(userDB);
   }
 
   static deleteUser(id: number) {
@@ -44,10 +67,6 @@ export class UserService {
 
   static async createUser(user: User) {
     return await UserQuery.createUser(user);
-  }
-
-  static async riseUser(email: string) {
-    await UserQuery.riseUser(email);
   }
 
 }

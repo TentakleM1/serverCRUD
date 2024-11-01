@@ -5,17 +5,11 @@
   "scripts": {
     "dev": "nodemon --files ./src/app.ts",
     "start": "ts-node --files cross-env NODE_ENV=production src/app.ts",
-    "typeorm": "typeorm-ts-node-commonjs",
-    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/db/migrations/migration -d ./src/db/data-source.ts",
-    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d  ./src/db/data-source.ts",
-    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d ./-d ./src/db/data-source.tssrc/db/data-source.ts",
-    "migration:show": "npx typeorm-ts-node-commonjs migration:show -d ./src/db/data-source.ts",
-
-    "torm": "npx typeorm-ts-node-commonjs -d ./src/db/data-source.ts",
-    "mig:generate": "npm run torm migration:generate ./src/db/migrations/migration",
-    "mig:up": "npm run torm migration:run",
-    "mig:down": "npm run torm migration:revert",
-    "mig:show": "npm run torm migration:show"
+    "typeorm": "npx typeorm-ts-node-commonjs -d ./src/db/data-source.ts",
+    "migration:generate": "npm run typeorm migration:generate ./src/db/migrations/migration",
+    "migration:up": "npm run typeorm migration:run",
+    "migration:down": "npm run typeorm migration:revert",
+    "migration:show": "npm run typeorm migration:show"
   },
   "keywords": [],
   "author": "",

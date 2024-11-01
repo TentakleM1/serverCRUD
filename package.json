@@ -1,0 +1,46 @@
+{
+  "name": "testserver",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon --files ./src/app.ts",
+    "start": "ts-node --files cross-env NODE_ENV=production src/app.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:generate": "npx typeorm-ts-node-commonjs migration:generate ./src/db/migrations/migration -d ./src/db/data-source.ts",
+    "migration:up": "npx typeorm-ts-node-commonjs migration:run -d  ./src/db/data-source.ts",
+    "migration:down": "npx typeorm-ts-node-commonjs migration:revert -d ./-d ./src/db/data-source.tssrc/db/data-source.ts",
+    "migration:show": "npx typeorm-ts-node-commonjs migration:show -d ./src/db/data-source.ts",
+
+    "torm": "npx typeorm-ts-node-commonjs -d ./src/db/data-source.ts",
+    "mig:generate": "npm run torm migration:generate ./src/db/migrations/migration",
+    "mig:up": "npm run torm migration:run",
+    "mig:down": "npm run torm migration:revert",
+    "mig:show": "npm run torm migration:show"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.12.0",
+    "@types/express": "5.0.0",
+    "@types/node": "16.11.10",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.11.0",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
+    "ts-node": "10.9.1",
+    "typescript": "4.7.4",
+    "typescript-eslint": "^8.8.1"
+  },
+  "dependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
+    "express": "4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.4.0",
+    "typeorm": "0.3.20",
+    "yup": "^1.4.0"
+  }
+}

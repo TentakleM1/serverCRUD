@@ -11,7 +11,7 @@ export class AuthService {
       throw new CustomError(404, "User not Found");
     }
     if (userDB.password !== hashPassword(login.password)) {
-      throw new CustomError(400, "incorrect password");
+      throw new CustomError(400, "Password does not match");
     }
     delete userDB.password;
     return userDB 

@@ -1,4 +1,5 @@
 import { User } from "./db/entities/User";
+import { IData } from "./types";
 
 export {};
 

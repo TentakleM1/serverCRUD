@@ -49,7 +49,11 @@ export const refresh: Handler =  async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const userId = TokenService.checkRefreshToken(token);
     await UserService.getUserById(userId);
-    res.status(200).send(TokenService.generateAllTokens(userId));
+    res.status(200).send({
+      payload: {
+        tokens: TokenService.generateAllTokens(userId)
+      }
+    });
   } catch (err) {
     next(err);
   }

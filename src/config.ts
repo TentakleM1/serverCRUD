@@ -18,9 +18,9 @@ if (!env) {
   console.error("Missing .env file");
   process.exit(1);
 }
-// console.log(Object.keys(env), Object.keys(defaultEnv))
+
 const non = Object.keys(defaultEnv).filter((key) => !(key in env))
-console.warn('warning in your environment is missing these variables:', ...non)
+console.warn('Warning in your environment is missing these variables:', ...non)
 
 const joinedEnv = {...defaultEnv, ...env};
 export const config = {

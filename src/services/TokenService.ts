@@ -25,17 +25,17 @@ export class TokenService {
     };
   }
 
-  static decodeToken(token: string, secret: string) {
+  static decodedToken(token: string, secret: string) {
     return jwt.verify(token, secret);
   }
 
   static checkToken(token: string) {
-    const decoded = this.decodeToken(token, tokenSecret);
-    return (decoded as JwtPayload).id;
+    const payload = this.decodedToken(token, tokenSecret);
+    return (payload as JwtPayload).id;
   }
 
   static checkRefreshToken(token: string) {
-    const decoded = this.decodeToken(token, refreshTokenSecret);
-    return (decoded as JwtPayload).id;
+    const payload = this.decodedToken(token, refreshTokenSecret);
+    return (payload as JwtPayload).id;
   }
 }

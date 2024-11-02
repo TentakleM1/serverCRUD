@@ -1,5 +1,5 @@
 import express from "express";
-import { userRouter } from "./userRoute";
+import { userRouter } from "./userRoutes";
 import { authRouter } from "./authRoutes";
 import { checkAuthorization } from "../middleware/authToken/checkAuthorization";
 

@@ -1,24 +1,27 @@
 import { Handler } from "express";
-import { ObjectSchema } from "yup";
 import { CustomError } from "../../shared/utils/customError/CustomError";
-import { ISigninSchema, ISignupSchema } from "../schema/authSchema";
-import { IChangePasswordSchema, IEditUserSchema, ILinkSchema } from "../schema/userSchema";
+import { IRequsetShchema } from "./schema/types";
+import * as yup from 'yup'
 
-type ValidationType = (
-  schema: ObjectSchema<ISigninSchema | ISignupSchema | IEditUserSchema | IChangePasswordSchema | ILinkSchema>
-) => Handler;
+type createValidatorMiddalwareType = (schema: yup.ObjectSchema<IRequsetShchema>) => Handler;
 
-export const validation: ValidationType = (schema) => {
-  return async (req, res, next) => {
+type ValidationSchemasType =
+  | yup.StringSchema
+  | yup.NumberSchema
+  | yup.BooleanSchema;
+
+type SchemaItemType = Record<string, ValidationSchemasType>;
+
+export const createValidatorMiddalware: createValidatorMiddalwareType = (schema) => {
+  return async (req, _, next) => {
     try {
-      await schema.validate({
-        params: req.params.userId,
-        body: req.body,
-      }, { stripUnknown: false });
-
+      await schema.validate(
+        req,
+        { stripUnknown: false }
+      );
       return next();
     } catch (err) {
-      return next(new CustomError(400, (err as Error).message))
+      return next(new CustomError(400, (err as Error).message));
     }
   };
 };

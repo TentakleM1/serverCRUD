@@ -11,6 +11,6 @@ const {
 } = config
 
 export const hashPassword = (password: string ): string => {
-    const hashPassword = pbkdf2Sync(password, salt as string, iterations, keylen, digest as string)
+    const hashPassword = pbkdf2Sync(password, salt, iterations, keylen, digest)
     return hashPassword.toString('hex')
 }

@@ -12,7 +12,7 @@ export const passwordYup = yup
   .max(32, "Not must 36 characters")
   .matches(/[a-z]/, "Password must contain a lowercase letter")
   .matches(/[A-Z]/, "Password must contain a uppercase letter")
-  .matches(/[^a-zA-Z\d]/, "Password must special symbol")
+  .matches(/[^a-zA-Z\d]/, "Password must special symbol").ensure()
   .required();
 
 export const emailYup = yup.string().email("Uncorect email").required();
@@ -22,4 +22,4 @@ export const birthDateYup = yup
   .matches(/(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/, "dd-mm-yyyy")
   .required();
   
-export const userIdParamYup = yup.number().typeError("userId not must by string").required();
+export const idParamYup = yup.string().typeError("Id not must by string").required();

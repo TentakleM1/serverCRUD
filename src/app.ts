@@ -5,7 +5,6 @@ import generalRouter from "./routes";
 import { errorHandler } from "./middleware/errorHandler/errorHandler";
 import { config } from "./config";
 
-
 const port: number = config.port || 3000;
 const app: Express = express();
 

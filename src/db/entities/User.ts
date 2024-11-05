@@ -1,6 +1,5 @@
-import { Entity, Column, OneToMany } from "typeorm";
+import { Entity, Column } from "typeorm";
 import { BaseEntity } from "../BaseEntity";
-import { Topic } from "./Topic";
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,7 +21,4 @@ export class User extends BaseEntity {
 
   @Column()
   birthDate: string;
-
-  @OneToMany(() => Topic, (topic) => topic.user)
-  topics: Topic[];
 }

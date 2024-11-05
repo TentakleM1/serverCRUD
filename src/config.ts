@@ -19,8 +19,10 @@ if (!env) {
   process.exit(1);
 }
 
-const non = Object.keys(defaultEnv).filter((key) => !(key in env))
-console.warn('Warning in your environment is missing these variables:', ...non)
+const missingVariables = Object.keys(defaultEnv).filter((key) => !(key in env))
+if(missingVariables.length !== 0) {
+  console.warn('Warning in your environment is missing these variables:', ...missingVariables)
+}
 
 const joinedEnv = {...defaultEnv, ...env};
 export const config = {

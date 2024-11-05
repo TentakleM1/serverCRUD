@@ -12,6 +12,7 @@ export const checkAuthorization: Handler = async (req, res, next) => {
     const userId = TokenService.checkToken(token);
 
     req.data = await UserService.getUserById(userId);
+    
     next();
   } catch (err) {
     next(new CustomError(401, (err as Error).message));

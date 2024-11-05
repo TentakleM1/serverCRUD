@@ -6,13 +6,13 @@ import {
   getAllUsers,
   getUser,
 } from "../controllers/userControllers";
-import { createValidatorMiddalware } from "../middleware/validation/validation";
-import { changePasswordSchema, editUserSchema, paramIdSchema } from "../middleware/validation/schema/userSchema";
+import { createValidatorMiddalware } from "../middleware/createValidatorMiddalware/createValidatorMiddalware";
+import { changePasswordSchema, editUserSchema, paramUserIdSchema } from "../middleware/createValidatorMiddalware/schema/userSchema";
 
 export const userRouter = express
   .Router()
   .get(`/users`, getAllUsers)
   .post(`/`, createValidatorMiddalware(editUserSchema), editUser)
-  .get(`/:userId`, createValidatorMiddalware(paramIdSchema), getUser)
-  .delete(`/:userId`, createValidatorMiddalware(paramIdSchema), deleteUser)
+  .get(`/:userId`, createValidatorMiddalware(paramUserIdSchema), getUser)
+  .delete(`/:userId`, createValidatorMiddalware(paramUserIdSchema), deleteUser)
   .post(`/changepassword/:userId`, createValidatorMiddalware(changePasswordSchema), changePassword);

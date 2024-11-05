@@ -41,7 +41,7 @@ export const signUp: Handler = async (req, res, next) => {
   }
 };
 
-export const refresh: Handler =  async (req, res, next) => {
+export const refreshToken: Handler =  async (req, res, next) => {
   try {
     if (!req.headers.authorization) {
       throw new CustomError(401);

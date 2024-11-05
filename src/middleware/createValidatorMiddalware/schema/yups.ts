@@ -19,7 +19,7 @@ export const emailYup = yup.string().email("Uncorect email").required();
 
 export const birthDateYup = yup
   .string()
-  .matches(/(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/, "dd-mm-yyyy")
+  .matches(/(^0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\d{4}$)/, "Incorrect date, correct format: dd-mm-yyyy")
   .required();
   
 export const idParamYup = yup.string().typeError("can't be a string").required();
